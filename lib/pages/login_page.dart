@@ -6,7 +6,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final Color bisque = Color(0xFFFFE4C4);
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -35,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _login() {
-    // Add your login logic here
     Navigator.pushNamed(context, '/home');
   }
 
@@ -45,69 +43,116 @@ class _LoginPageState extends State<LoginPage> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: bisque,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-        child: Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'Sign-in',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: height * 0.05,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Stack(
+        children: [
+          // Background image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/sbuc.jpg'), // Replace with your image asset path
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: height * 0.04),
-              Text('Name:'),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[300],
-                ),
-              ),
-              SizedBox(height: height * 0.02),
-              Text('Password:'),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[300],
-                ),
-                obscureText: true,
-              ),
-              SizedBox(height: height * 0.04),
-              ElevatedButton(
-                onPressed: _isButtonDisabled ? null : _login,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.brown,
-                  padding: EdgeInsets.symmetric(vertical: height * 0.02),
-                ),
-                child: Text('Login'),
-              ),
-              SizedBox(height: height * 0.02),
-              Text(
-                'or',
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: height * 0.02),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/registration');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.brown,
-                  padding: EdgeInsets.symmetric(vertical: height * 0.02),
-                ),
-                child: Text('Sign-up'),
-              ),
-            ],
+            ),
           ),
-        ),
+          // Dark shade overlay
+          Container(
+            color: Colors.black.withOpacity(0.6),
+          ),
+          // Login form
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+            child: Form(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Sign-in',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: height * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: height * 0.04),
+                  Text(
+                    'Name:',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  TextFormField(
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[300]?.withOpacity(0.5),
+                    ),
+                  ),
+                  SizedBox(height: height * 0.02),
+                  Text(
+                    'Password:',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[300]?.withOpacity(0.5),
+                    ),
+                    obscureText: true,
+                  ),
+                  SizedBox(height: height * 0.04),
+                  Center(
+                    child: SizedBox(
+                      width: width * 0.6, // Reduce the width of the button
+                      child: ElevatedButton(
+                        onPressed: _isButtonDisabled ? null : _login,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.brown,
+                          padding: EdgeInsets.symmetric(vertical: height * 0.02),
+                        ),
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: height * 0.02),
+                  Text(
+                    'or',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(height: height * 0.02),
+                  Center(
+                    child: SizedBox(
+                      width: width * 0.6, // Reduce the width of the button
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.brown,
+                          padding: EdgeInsets.symmetric(vertical: height * 0.02),
+                        ),
+                        child: Text(
+                          'Sign-up',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
